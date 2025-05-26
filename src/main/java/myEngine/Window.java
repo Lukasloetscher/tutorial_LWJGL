@@ -32,6 +32,15 @@ public class Window {
         System.out.println("Hello World" + Version.getVersion());
         init();
         loop();
+
+        //Free the memory
+        glfwFreeCallbacks(glfwWindow);
+        glfwDestroyWindow(glfwWindow);
+
+        //Terminate GLFW
+        glfwTerminate();
+        glfwSetErrorCallback(null).free();
+
     }
 
     public void init(){
@@ -81,13 +90,6 @@ public class Window {
         // bindings available for use.
         GL.createCapabilities();
 
-        //Free the memory
-        glfwFreeCallbacks(glfwWindow);
-        glfwDestroyWindow(glfwWindow);
-
-        //Terminate GLFW
-        glfwTerminate();
-        glfwSetErrorCallback(null).free();
 
     }
     public void loop(){
@@ -100,6 +102,10 @@ public class Window {
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
 
             glfwSwapBuffers(glfwWindow); // swap the color buffers
+
+            if(KeyListener.isKeyPressed(GLFW_KEY_SPACE)){
+                System.out.println("Space Key is pressed");
+            }
 
             // Poll for window events. The key callback above will only be
             // invoked during this call.
