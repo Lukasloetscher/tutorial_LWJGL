@@ -59,6 +59,11 @@ public class Window {
             if ( key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE )
                 glfwSetWindowShouldClose(window, true); // We will detect this in the rendering loop
         });
+        //Create Callbacks:
+        glfwSetCursorPosCallback(glfwWindow, MouseListener::mousePosCallback);
+        glfwSetMouseButtonCallback(glfwWindow, MouseListener::mouseButtonCallback);
+        glfwSetScrollCallback(glfwWindow,MouseListener::mouseScrollCallback);
+
 
         // Make the OpenGL context current
         glfwMakeContextCurrent(glfwWindow);
