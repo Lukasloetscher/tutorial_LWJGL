@@ -75,6 +75,13 @@ public class Window {
         // bindings available for use.
         GL.createCapabilities();
 
+        //Free the memory
+        glfwFreeCallbacks(glfwWindow);
+        glfwDestroyWindow(glfwWindow);
+
+        //Terminate GLFW
+        glfwTerminate();
+        glfwSetErrorCallback(null).free();
 
     }
     public void loop(){
