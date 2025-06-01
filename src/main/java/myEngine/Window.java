@@ -4,6 +4,7 @@ import org.lwjgl.*;
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
 import org.lwjgl.system.*;
+import util.Time;
 
 import static org.lwjgl.glfw.Callbacks.*;
 import static org.lwjgl.glfw.GLFW.*;
@@ -98,7 +99,10 @@ public class Window {
 
         // Run the rendering loop until the user has attempted to close
         // the window or has pressed the ESCAPE key.
+        float frameBeginTime = Time.getTime();
+        float frameEndTime;
         while ( !glfwWindowShouldClose(glfwWindow) ) {
+
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
 
             glfwSwapBuffers(glfwWindow); // swap the color buffers
@@ -108,6 +112,11 @@ public class Window {
             // Poll for window events. The key callback above will only be
             // invoked during this call.
             glfwPollEvents();
+
+            frameEndTime = Time.getTime();
+            float dt = frameEndTime - frameBeginTime;
+            frameBeginTime = frameEndTime;
+
         }
     }
 
