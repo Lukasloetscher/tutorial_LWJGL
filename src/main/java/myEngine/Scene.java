@@ -1,7 +1,15 @@
 package myEngine;
 
 public abstract class Scene {
+
+
+
+
     public Scene(){
+        init();
+    }
+
+    public void init (){
 
     }
 
