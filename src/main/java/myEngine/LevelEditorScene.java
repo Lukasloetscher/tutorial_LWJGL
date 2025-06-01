@@ -11,7 +11,7 @@ import static org.lwjgl.opengl.GL30.*;
 public class LevelEditorScene extends Scene {
 
 
-    private final String vertexShaderSrc = "#version 330 core\n" +
+    private  String vertexShaderSrc = "#version 330 core\n" +
             "\n" +
             "layout (location=0) in vec3 aPos;\n" +
             "layout (location=1) in vec4 aColor;\n" +
@@ -54,11 +54,29 @@ public class LevelEditorScene extends Scene {
     private int vaoID, vboID, eboID;
 
     public LevelEditorScene() {
-
+        init();
     }
 
     @Override
     public void update(float dt) {
+        //Bind shader Program
+        glUseProgram(shaderProgramID);
+        // Bind the VAO that we're using
+        glBindVertexArray(vaoID);
+
+        //Enable the vertex Attributes pointers
+        glEnableVertexAttribArray(0);
+        glEnableVertexAttribArray(1);
+        glDrawElements(GL_TRIANGLES, elementArray.length, GL_UNSIGNED_INT, 0);
+
+        //Unbind everything
+        glDisableVertexAttribArray(0);
+        glDisableVertexAttribArray(0);
+
+        glBindVertexArray(0);
+        glUseProgram(0);  //this should be a try with resources with an AutoCloseable... just for better readability, and so we do not acidentally forget to do it...
+
+
 
     }
 
