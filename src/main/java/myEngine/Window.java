@@ -101,8 +101,8 @@ public class Window {
 
     }
     public void loop(){
-        // Set the clear color
-        glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
+
+
 
         // Run the rendering loop until the user has attempted to close
         // the window or has pressed the ESCAPE key.
@@ -110,9 +110,13 @@ public class Window {
         float frameEndTime;
         float dt = 0;
         while ( !glfwWindowShouldClose(glfwWindow) ) {
+            // Set the clear color
+            glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
+            //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
+            glClear(GL_COLOR_BUFFER_BIT); // clear the framebuffer
 
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
             currentScene.update(dt);
+
             glfwSwapBuffers(glfwWindow); // swap the color buffers
 
            

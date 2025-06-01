@@ -11,7 +11,7 @@ import static org.lwjgl.opengl.GL30.*;
 public class LevelEditorScene extends Scene {
 
 
-    private  String vertexShaderSrc = "#version 330 core\n" +
+    private  String vertexShaderSrc = "#version 460 core\n" +
             "\n" +
             "layout (location=0) in vec3 aPos;\n" +
             "layout (location=1) in vec4 aColor;\n" +
@@ -25,7 +25,7 @@ public class LevelEditorScene extends Scene {
             "}\n";
 
     private final String fragmentShaderSrc = "\n" +
-            "#version 330 core\n" +
+            "#version 460 core\n" +
             "\n" +
             "in vec4 fColor;\n" +
             "\n" +
@@ -67,6 +67,8 @@ public class LevelEditorScene extends Scene {
         //Enable the vertex Attributes pointers
         glEnableVertexAttribArray(0);
         glEnableVertexAttribArray(1);
+
+
         glDrawElements(GL_TRIANGLES, elementArray.length, GL_UNSIGNED_INT, 0);
 
         //Unbind everything
@@ -74,7 +76,7 @@ public class LevelEditorScene extends Scene {
         glDisableVertexAttribArray(0);
 
         glBindVertexArray(0);
-        glUseProgram(0);  //this should be a try with resources with an AutoCloseable... just for better readability, and so we do not acidentally forget to do it...
+        glUseProgram(0);  //this should be a try with resources with an AutoCloseable... just for better readability, and so we do not accidentally forget to do it...
 
 
 
@@ -163,7 +165,7 @@ public class LevelEditorScene extends Scene {
         int positionSize  = 3;
         int colorSize = 4;
         int floatSizeBytes = 4;
-        int vertexSizeInBytes = (positionSize + colorSize) + floatSizeBytes;
+        int vertexSizeInBytes = (positionSize + colorSize) * floatSizeBytes;
         glVertexAttribPointer(0,positionSize,GL_FLOAT, false, vertexSizeInBytes,0);  //The first 0 corresponds to layout (location=0) in vec3 aPos;
         glEnableVertexAttribArray(0);
         glVertexAttribPointer(1,colorSize,GL_FLOAT, false, vertexSizeInBytes,positionSize * floatSizeBytes);  //The first 1 corresponds to layout (location=1) in vec4 aColor;
