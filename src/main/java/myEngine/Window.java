@@ -21,7 +21,7 @@ public class Window {
 
     private static Scene currentScene = null;
 
-    public static void ChangeScene(Scene newScene){
+    public static void changeScene(Scene newScene){
         currentScene = newScene;
     }
 
@@ -97,7 +97,7 @@ public class Window {
         // creates the GLCapabilities instance and makes the OpenGL
         // bindings available for use.
         GL.createCapabilities();
-        currentScene = new LevelScene();
+        changeScene(new LevelEditorScene());
 
     }
     public void loop(){

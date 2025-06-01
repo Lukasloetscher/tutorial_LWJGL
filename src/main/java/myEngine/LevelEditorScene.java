@@ -8,7 +8,7 @@ public class LevelEditorScene extends Scene {
     private final String vertexShaderSrc = "#version 330 core\n" +
             "\n" +
             "layout (location=0) in vec3 aPos;\n" +
-            "layout (location=1) in vec4 AColor;\n" +
+            "layout (location=1) in vec4 aColor;\n" +
             "\n" +
             "out vec4 fColor;\n" +
             "\n" +
@@ -47,7 +47,6 @@ public class LevelEditorScene extends Scene {
     @Override
     public void init() {
         //First load and compile vertex shader
-
         vertexShaderID = glCreateShader(GL_VERTEX_SHADER);
 
         //pass the shader source code to GPU
@@ -60,7 +59,8 @@ public class LevelEditorScene extends Scene {
         int success = glGetShaderi(vertexShaderID, GL_COMPILE_STATUS);
         if (success == GL_FALSE){
             int len = glGetShaderi(vertexShaderID,GL_INFO_LOG_LENGTH);
-            System.out.println("ERROR: 'default Shader.glsl' \n\t vertexShader compilation failed");
+            System.out.println("ERROR: 'default Shader.glsl'");
+            System.out.println("vertexShader compilation failed");
             System.out.println(glGetShaderInfoLog(vertexShaderID, len));
             throw new RuntimeException();
         }
@@ -78,7 +78,8 @@ public class LevelEditorScene extends Scene {
         success = glGetShaderi(fragmentShaderID, GL_COMPILE_STATUS);
         if (success == GL_FALSE){
             int len = glGetShaderi(vertexShaderID,GL_INFO_LOG_LENGTH);
-            System.out.println("ERROR: 'default Shader.glsl' \n\t fragmentShader compilation failed");
+            System.out.println("ERROR: 'default Shader.glsl'");
+            System.out.println("fragmentShader compilation failed");
             System.out.println(glGetShaderInfoLog(vertexShaderID, len));
             throw new RuntimeException();
         }
@@ -93,7 +94,8 @@ public class LevelEditorScene extends Scene {
         success = glGetProgrami(shaderProgramID, GL_LINK_STATUS);
         if (success == GL_FALSE){
             int len = glGetProgrami(shaderProgramID,GL_INFO_LOG_LENGTH);
-            System.out.println("ERROR: 'Linking ' \n\t linking Program failed");
+            System.out.println("ERROR: 'Linking '");
+            System.out.println("linking Program failed");
             System.out.println(glGetProgramInfoLog(vertexShaderID, len));
             throw new RuntimeException();
         }
