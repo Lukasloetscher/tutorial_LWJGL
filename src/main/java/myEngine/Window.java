@@ -103,9 +103,7 @@ public class Window {
 
             glfwSwapBuffers(glfwWindow); // swap the color buffers
 
-            if(KeyListener.isKeyPressed(GLFW_KEY_SPACE)){
-                System.out.println("Space Key is pressed");
-            }
+           
 
             // Poll for window events. The key callback above will only be
             // invoked during this call.
