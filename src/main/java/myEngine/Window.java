@@ -19,6 +19,13 @@ public class Window {
 
     private long glfwWindow;
 
+    private static Scene currentScene = null;
+
+    public static void ChangeScene(Scene newScene){
+        currentScene = newScene;
+    }
+
+
     private Window(){
         width = 1920;
         height = 1080;
@@ -90,7 +97,7 @@ public class Window {
         // creates the GLCapabilities instance and makes the OpenGL
         // bindings available for use.
         GL.createCapabilities();
-
+        currentScene = new LevelScene();
 
     }
     public void loop(){
@@ -116,6 +123,8 @@ public class Window {
             frameEndTime = Time.getTime();
             float dt = frameEndTime - frameBeginTime;
             frameBeginTime = frameEndTime;
+            currentScene.update(dt);
+
 
         }
     }
