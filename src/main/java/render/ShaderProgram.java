@@ -97,10 +97,7 @@ public class ShaderProgram implements InterfaceShaderProgram{
 
 
     }
-
-
-
-
+    @Override
     public ShaderAutoCloseable useProgram(){
         glUseProgram(shaderProgramID);
         return new ShaderAutoCloseable();

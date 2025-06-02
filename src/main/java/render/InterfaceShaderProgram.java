@@ -9,7 +9,6 @@ public interface InterfaceShaderProgram {
 
     public ShaderAutoCloseable useProgram();
 
-
     public class ShaderAutoCloseable implements Closeable {
         @Override
         public void close() throws IOException {
