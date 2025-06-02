@@ -1,25 +1,18 @@
 package render;
 
-import org.lwjgl.BufferUtils;
-
-import java.io.FileInputStream;
+import java.io.Closeable;
 import java.io.IOException;
-import java.nio.FloatBuffer;
-import java.nio.IntBuffer;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 
 import static org.lwjgl.opengl.GL11.GL_FALSE;
 import static org.lwjgl.opengl.GL20.*;
-import static org.lwjgl.opengl.GL30.glBindVertexArray;
 import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 
-public class Shader {
+public class ShaderProgram implements InterfaceShaderProgram{
 
     public static void main(String[] args){
-        Shader test = new Shader("assets/shaders/defaults/vertex.glsl","assets/shaders/defaults/fragment.glsl");
+        ShaderProgram test = new ShaderProgram("assets/shaders/defaults/vertex.glsl","assets/shaders/defaults/fragment.glsl");
     }
 
     private int shaderProgramID;
@@ -27,12 +20,12 @@ public class Shader {
     private String fragmentShaderSrc;
 
 
-    public Shader(String vertexShaderFilepath, String fragmentShaderFilepath){
+    public ShaderProgram(String vertexShaderFilepath, String fragmentShaderFilepath){
         readFiles(vertexShaderFilepath,fragmentShaderFilepath);
         linkAndCompile();
     }
 
-    public void readFiles(String vertexShaderFilepath, String fragmentShaderFilepath){
+    private void readFiles(String vertexShaderFilepath, String fragmentShaderFilepath){
         try{
             vertexShaderSrc = new String(Files.readAllBytes(Paths.get(vertexShaderFilepath)));
             fragmentShaderSrc = new String(Files.readAllBytes(Paths.get(fragmentShaderFilepath)));
@@ -44,7 +37,9 @@ public class Shader {
 
 
 
-    public void linkAndCompile(){
+    private void linkAndCompile(){
+
+        //TODO Move the shaders to their own classes
         int vertexShaderID,fragmentShaderID;
 
         //First load and compile vertex shader
@@ -103,12 +98,12 @@ public class Shader {
 
     }
 
-    public void useShader(){
-        glUseProgram(shaderProgramID);
-    }
 
-    public void detach(){
-        glUseProgram(0);
+
+
+    public ShaderAutoCloseable useProgram(){
+        glUseProgram(shaderProgramID);
+        return new ShaderAutoCloseable();
     }
 
 

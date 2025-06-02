@@ -1,8 +1,10 @@
 package myEngine;
 
 import org.lwjgl.BufferUtils;
-import render.Shader;
+import render.InterfaceShaderProgram;
+import render.ShaderProgram;
 
+import java.io.IOException;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
@@ -12,7 +14,7 @@ import static org.lwjgl.opengl.GL30.*;
 public class LevelEditorScene extends Scene {
 
 
-    private Shader defaultShader;
+    private InterfaceShaderProgram defaultProgram;
 
     private float[] vertexArray = {
             //position                  //color
@@ -35,24 +37,25 @@ public class LevelEditorScene extends Scene {
     @Override
     public void update(float dt) {
         //Bind shader Program
-        defaultShader.useShader();
+        try (var ignored = defaultProgram.useProgram()){
         // Bind the VAO that we're using
-        glBindVertexArray(vaoID);
+            glBindVertexArray(vaoID);
 
-        //Enable the vertex Attributes pointers
-        glEnableVertexAttribArray(0);
-        glEnableVertexAttribArray(1);
+            //Enable the vertex Attributes pointers
+            glEnableVertexAttribArray(0);
+            glEnableVertexAttribArray(1);
 
 
-        glDrawElements(GL_TRIANGLES, elementArray.length, GL_UNSIGNED_INT, 0);
+            glDrawElements(GL_TRIANGLES, elementArray.length, GL_UNSIGNED_INT, 0);
 
-        //Unbind everything
-        glDisableVertexAttribArray(0);
-        glDisableVertexAttribArray(0);
+            //Unbind everything
+            glDisableVertexAttribArray(0);
+            glDisableVertexAttribArray(0);
 
-        glBindVertexArray(0);
-        defaultShader.detach();  //this should be a try with resources with an AutoCloseable... just for better readability, and so we do not accidentally forget to do it...
-
+            glBindVertexArray(0);
+        } catch (IOException e) {
+               throw new RuntimeException(e);
+        }
 
 
     }
@@ -60,7 +63,7 @@ public class LevelEditorScene extends Scene {
     @Override
     public void init() {
 
-        defaultShader = new Shader("assets/shaders/defaults/vertex.glsl","assets/shaders/defaults/fragment.glsl");
+        defaultProgram = new ShaderProgram("assets/shaders/defaults/vertex.glsl","assets/shaders/defaults/fragment.glsl");
 
         //Generate Buffer objects
 
