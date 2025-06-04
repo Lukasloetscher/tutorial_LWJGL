@@ -21,9 +21,9 @@ public class LevelEditorScene extends Scene {
 
     private float[] vertexArray = {
             //position                  //color
-            1000.5f, 0.5f, 0.0f,          1.0f,0.0f,0.0f,1.0f, //Bottom right
-            0.5f, 1000.5f, 0.0f,          0.0f,0.0f,0.0f,1.0f, //Top left
-            1000.5f, 1000.5f, 0.0f,           0.0f,0.0f,1.0f,1.0f, //Top right
+            100.5f, 0.5f, 0.0f,          1.0f,0.0f,0.0f,1.0f, //Bottom right
+            0.5f, 100.5f, 0.0f,          0.0f,0.0f,0.0f,1.0f, //Top left
+            100.5f, 100.5f, 0.0f,           0.0f,0.0f,1.0f,1.0f, //Top right
             -0.5f, 0.5f, 0.0f,         1.0f,1.0f,0.0f,1.0f //Bottom left
     };
     //IMPORTANT THIS MUST BE IN COUNTER-CLOCKWISE ORDER!
@@ -72,7 +72,7 @@ public class LevelEditorScene extends Scene {
 
     @Override
     public void init() {
-        camera = new Camera(new Vector2f(0.0f,0.0f));
+        camera = new Camera(new Vector2f(-25.0f,-50.0f));
         defaultProgram = new ShaderProgram("assets/shaders/defaults/vertex.glsl","assets/shaders/defaults/fragment.glsl");
 
         //Generate Buffer objects
