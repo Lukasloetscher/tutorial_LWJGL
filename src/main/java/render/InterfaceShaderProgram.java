@@ -1,5 +1,7 @@
 package render;
 
+import org.joml.Matrix4f;
+
 import java.io.Closeable;
 import java.io.IOException;
 
@@ -15,5 +17,7 @@ public interface InterfaceShaderProgram {
             glUseProgram(0);
         }
     }
+
+    public void uploadMat4f(String uniformVarName, Matrix4f matrixToUpload);
 
 }

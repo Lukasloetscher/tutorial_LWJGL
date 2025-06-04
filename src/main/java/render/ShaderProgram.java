@@ -1,7 +1,11 @@
 package render;
 
+import org.joml.Matrix4f;
+import org.lwjgl.BufferUtils;
+
 import java.io.Closeable;
 import java.io.IOException;
+import java.nio.FloatBuffer;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -103,6 +107,14 @@ public class ShaderProgram implements InterfaceShaderProgram{
         return new ShaderAutoCloseable();
     }
 
+    @Override
+    public void uploadMat4f(String uniformVarName, Matrix4f matrixToUpload) {  //TODO make this able to specify Shader...
+            int varLocation = glGetUniformLocation(shaderProgramID,uniformVarName);
+            FloatBuffer matBuffer = BufferUtils.createFloatBuffer(16);
+            matrixToUpload.get(matBuffer);
+            glUniformMatrix4fv(varLocation,false,matBuffer);
+
+    }
 
 
 }

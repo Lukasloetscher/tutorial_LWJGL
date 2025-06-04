@@ -1,5 +1,6 @@
 package myEngine;
 
+import org.joml.Vector2f;
 import org.lwjgl.BufferUtils;
 import render.InterfaceShaderProgram;
 import render.ShaderProgram;
@@ -15,6 +16,8 @@ public class LevelEditorScene extends Scene {
 
 
     private InterfaceShaderProgram defaultProgram;
+    private Camera camera;
+
 
     private float[] vertexArray = {
             //position                  //color
@@ -36,6 +39,10 @@ public class LevelEditorScene extends Scene {
 
     @Override
     public void update(float dt) {
+
+        defaultProgram.uploadMat4f("uProjection",camera.getProjectionMatrix());
+        defaultProgram.uploadMat4f("uView",camera.getViewMatrix());
+
         //Bind shader Program
         try (var ignored = defaultProgram.useProgram()){
         // Bind the VAO that we're using
@@ -62,7 +69,7 @@ public class LevelEditorScene extends Scene {
 
     @Override
     public void init() {
-
+        camera = new Camera(new Vector2f(0.0f,0.0f));
         defaultProgram = new ShaderProgram("assets/shaders/defaults/vertex.glsl","assets/shaders/defaults/fragment.glsl");
 
         //Generate Buffer objects
