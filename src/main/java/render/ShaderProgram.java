@@ -112,7 +112,7 @@ public class ShaderProgram implements InterfaceShaderProgram{
             int varLocation = glGetUniformLocation(shaderProgramID,uniformVarName);
             FloatBuffer matBuffer = BufferUtils.createFloatBuffer(16);
             matrixToUpload.get(matBuffer);
-            glUniformMatrix4fv(varLocation,false,matBuffer);
+            glUniformMatrix4fv(varLocation,false, matBuffer);
 
     }
 

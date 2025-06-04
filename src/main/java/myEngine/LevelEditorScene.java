@@ -21,10 +21,10 @@ public class LevelEditorScene extends Scene {
 
     private float[] vertexArray = {
             //position                  //color
-            0.5f, -0.5f, 0.0f,          1.0f,0.0f,0.0f,1.0f, //Bottom right
-            -0.5f, 0.5f, 0.0f,          0.0f,0.0f,0.0f,1.0f, //Top left
-            0.5f, 0.5f, 0.0f,           0.0f,0.0f,1.0f,1.0f, //Top right
-            -0.5f, -0.5f, 0.0f,         1.0f,1.0f,0.0f,1.0f //Bottom left
+            1000.5f, 0.5f, 0.0f,          1.0f,0.0f,0.0f,1.0f, //Bottom right
+            0.5f, 1000.5f, 0.0f,          0.0f,0.0f,0.0f,1.0f, //Top left
+            1000.5f, 1000.5f, 0.0f,           0.0f,0.0f,1.0f,1.0f, //Top right
+            -0.5f, 0.5f, 0.0f,         1.0f,1.0f,0.0f,1.0f //Bottom left
     };
     //IMPORTANT THIS MUST BE IN COUNTER-CLOCKWISE ORDER!
     private int[] elementArray = {
@@ -40,11 +40,14 @@ public class LevelEditorScene extends Scene {
     @Override
     public void update(float dt) {
 
-        defaultProgram.uploadMat4f("uProjection",camera.getProjectionMatrix());
-        defaultProgram.uploadMat4f("uView",camera.getViewMatrix());
-
         //Bind shader Program
         try (var ignored = defaultProgram.useProgram()){
+
+
+            defaultProgram.uploadMat4f("uProjection",camera.getProjectionMatrix()); //This only works when we use the Program.
+            defaultProgram.uploadMat4f("uView",camera.getViewMatrix());
+
+
         // Bind the VAO that we're using
             glBindVertexArray(vaoID);
 
